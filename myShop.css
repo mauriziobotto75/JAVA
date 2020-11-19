@@ -1,0 +1,121 @@
+body {
+	background-color: white;
+	font-size: 10pt
+}
+
+a {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-style: italic;
+	font-weight: bold;
+	color: #3B1167;
+	background-color: transparent;
+	text-decoration: none
+}
+
+a:hover {
+  text-decoration: underline
+} 
+
+th {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold
+}
+
+td {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10pt
+}
+
+ul {
+	list-style-type: none
+}
+
+.footer {
+	font-size: 8pt;
+	text-align: right;
+	color: #5A4DBD
+}
+
+.intestazione {
+	font-size: 15pt;
+	font-weight: bold;
+	text-align: center;
+	color: #5A4DBD
+}
+
+.blubg {
+  background-color: #5A4DBD;
+}
+
+.intestazione_tabella {
+	font-size: 12pt;
+	font-weight: bold;
+	text-align: center;
+	color: #FFFFFF;
+	background-color: #5A4DBD;
+	padding: 5px
+}
+
+.intestazione_sotto_tabella {
+	font-size: 11pt;
+	font-weight: bold;
+	text-align: center;
+	color: #FFFFFF;
+	background-color: #9F698D
+}
+
+.piccolo {
+	font-size: 8pt;
+	font-weight: bold;
+	text-align: left;
+	color: #9F698D
+}
+
+.riga1_tabella {
+	font-size: 10pt;
+	font-weight: bold;
+	text-align: center;
+	color: #FFFFFF;
+	background: #AAA1EF;
+	padding: 5px
+}
+
+.riga2_tabella {
+	font-size: 10pt;
+	font-weight: bold;
+	text-align: center;
+	color: #FFFFFF;
+	background: #5A4DBD;
+	padding: 5px
+}
+
+.riga1_sotto_tabella {
+	font-size: 10pt;
+	font-weight: bold;
+	text-align: center;
+	color: #FFFFFF;
+	background: #CC98BA
+}
+
+.riga2_sotto_tabella {
+	font-size: 10pt;
+	font-weight: bold;
+	text-align: center;
+	color: #FFFFFF;
+	background: #9F698D
+}
+
+.errore {
+	font-size: 12pt;
+	font-weight: bold;
+	text-align: center;
+	color: #FA3318
+}
+
+.intestazione_form {
+	font-size: 10pt;
+	font-weight: bold;
+	text-align: right;
+	color: #FFFFFF;
+	background-color: #5A4DBD
+}
