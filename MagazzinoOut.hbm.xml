@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-mag-2015 9.30.44 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="dati.MagazzinoOut" table="MAGAZZINOOUT">
+        <id name="idOut" type="int">
+            <column name="IDOUT" />
+            <generator class="increment" />
+        </id>
+        <property name="quantita" type="int">
+            <column name="QUANTITA" />
+        </property>
+        <property name="data" type="date">
+            <column name="DAT" />
+        </property>
+        <many-to-one name="prodotto" class="dati.Prodotto" column="idprodotto"></many-to-one>
+   		 <many-to-one name="ordine" class="dati.Ordine" not-null="true">
+            <column name="IDORDINE" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

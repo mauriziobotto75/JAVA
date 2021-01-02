@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-mag-2015 9.28.00 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="dati.Ordine" table="ORDINE">
+        <id name="idOrdine" type="int">
+            <column name="IDORDINE" />
+            <generator class="increment" />
+        </id>
+        <property name="data" type="date">
+            <column name="DAT" />
+        </property>
+        <property name="stato" type="java.lang.String">
+            <column name="STATO" />
+        </property>
+                
+        <set name="acquisto" table="MAGAZZINOOUT" inverse="false" lazy="true">
+            <key>
+                <column name="IDORDINE" />
+            </key>
+            <one-to-many class="dati.MagazzinoOut" />
+        </set>
+        
+        
+        <many-to-one name="utente" class="dati.Utente" fetch="join">
+            <column name="IDUTENTE" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

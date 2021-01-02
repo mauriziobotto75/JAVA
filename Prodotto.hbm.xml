@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-mag-2015 9.30.44 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="dati.Prodotto" table="PRODOTTO">
+        <id name="idProdotto" type="int">
+            <column name="IDPRODOTTO" />
+            <generator class="increment" />
+        </id>
+        <property name="nomeProdotto" type="java.lang.String">
+            <column name="NOMEPRODOTTO" />
+        </property>
+        <property name="descrizione" type="java.lang.String">
+            <column name="DESCRIZIONE" />
+        </property>
+        <property name="immagine" type="java.lang.String">
+            <column name="IMMAGINE" />
+        </property>
+        <property name="prezzo" type="float">
+            <column name="PREZZO" />
+        </property>
+        
+        
+        <one-to-one name="in" class="dati.MagazzinoIn"></one-to-one>
+        <one-to-one name="out" class="dati.MagazzinoOut"></one-to-one>
+    
+    </class>
+</hibernate-mapping>

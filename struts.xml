@@ -1,0 +1,189 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="actions" extends="struts-default">
+    
+    
+		<result-types>
+		<result-type name="imageResult" class="actions.CustomImageBytesResult"></result-type>
+		</result-types>
+			
+        <action name="avanti" class="actions.Avanti" method="execute">
+            <result name="success">/prodotti.jsp</result>
+            </action>
+            
+            <action name="ricerca" class="actions.Avanti" method="ricerca">
+            <result name="success">/prodotti.jsp</result>
+            <result name="error">/prodotti.jsp</result>
+            </action>
+            
+            <action name="aggCarrello" class="actions.Carrello" method="execute">
+            <result name="success">/prodotti.jsp</result>
+            <result name="error">/prodotti.jsp</result>
+            <result name="input">/prodotti.jsp</result>
+            </action>
+            
+            <action name="goToCart" class="actions.Carrello" method="vaiAlCarrello">
+            <result name="success">/carrello.jsp</result>
+            </action>
+            
+            <action name="rimuovi" class="actions.Carrello" method="rimuovi">
+            <result name="success">/carrello.jsp</result>
+            </action>
+            
+            <action name="login" class="actions.Login" method="execute">
+            <result name="redirectUrl" type="redirect">${redirectUrl}</result>  
+            <result name="error" type="redirect">${redirectUrl}
+
+           	</result>
+            <result name="admin">/admin.jsp</result>
+            </action>
+            
+            <action name="logout" class="actions.Login" method="logout">
+            <result name="success" type="redirect">/index.jsp</result>
+            <result name="redirectUrl" type="redirect">${redirectUrl}</result>
+            </action>
+            
+            <action name="registrazione" class="actions.Registrazione" method="execute">
+            <result name="success" type="redirect">/index.jsp</result>
+            <result name="error">/registrazione.jsp</result>
+            <result name="input">/registrazione.jsp</result>
+            </action>
+            
+            <action name="lista" class="actions.Admin" method="lista">
+            <result name="success">/admin.jsp</result>
+            </action>
+            <action name="allTxn" class="actions.Admin" method="listaTransazioni">
+            <result name="success">/admin.jsp</result>
+            </action>
+            <action name="nuovoProdotto" class="actions.Admin" method="nuovoProdotto">
+            <result name="success">/admin.jsp</result>
+            </action>
+            <action name="modificaProdotto" class="actions.Admin" method="modificaProdotto">
+            <result name="success">/admin.jsp</result>
+            </action>
+            <action name="aggiungiArticolo" class="actions.Admin" method="aggiungiArticolo">
+            <result name="success">/admin.jsp</result>
+            </action>
+            <action name="modificaArticolo" class="actions.Admin" method="modificaArticolo">
+            <result name="success">/admin.jsp</result>
+            </action>
+            <action name="aggiungi" class="actions.Admin" method="aggiungi">
+            <interceptor-ref name="fileUpload">
+        	<param name="maximumSize">2097152
+        	</param>
+        	<param name="allowedTypes">
+            image/png,image/gif,image/jpeg,image/pjpeg
+         	</param>
+    		</interceptor-ref>
+   			<interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success">/admin.jsp</result>
+            <result name="error">/admin.jsp</result>
+            </action>
+            <action name="scegliProdotto" class="actions.Admin" method="scegliProdotto">
+            <result name="success">/admin.jsp</result>
+            </action>
+            <action name="modifica" class="actions.Admin" method="modifica">
+            <interceptor-ref name="fileUpload">
+        	<param name="maximumSize">2097152
+        	</param>
+        	<param name="allowedTypes">
+            image/png,image/gif,image/jpeg,image/pjpeg
+         	</param>
+    		</interceptor-ref>
+   			<interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success">/admin.jsp</result>
+            <result name="error">/admin.jsp</result>
+            </action>
+            <action name="addMagazzino" class="actions.Admin" method="addMagazzino">
+            <result name="success">/admin.jsp</result>
+            </action>
+            <action name="addQuantita" class="actions.Admin" method="addQuantita">
+            <result name="success">/admin.jsp</result>
+            <result name="error">/admin.jsp</result>
+            </action>
+            <action name="selectItem" class="actions.Admin" method="scegliMag">
+            <result name="success">/admin.jsp</result>
+            </action>
+            <action name="removeItem" class="actions.Admin" method="rimuoviItem">
+            <result name="success">/admin.jsp</result>
+            </action>
+            <action name="goToAdmin" class="actions.Admin" method="goToAdmin">
+            <result name="success">/admin.jsp</result>
+            </action>            
+            
+            <action name="returnToLista" class="actions.Carrello" method="indietro">
+            <result name="success">/prodotti.jsp</result>
+            </action>
+            
+            <action name="ordina" class="actions.Ordine" method="ordina">
+            <result name="success">/reindirizza.jsp</result>
+            <result name="error">/reindirizza.jsp</result>
+            </action>
+            
+            <action name="salva" class="actions.Ordine" method="salva">
+            <result name="success">/reindirizza.jsp</result>
+            </action>
+            
+            <action name="invia" class="actions.InvioEmail" method="execute">
+            <result name="invia" type="redirect">/index.jsp</result>
+            </action>
+            
+            <action name="Display" class="actions.DisplayAction">
+			<result>pages/display.jsp</result>
+			</action>
+	 
+			<action name="ImageAction" class="actions.ImageAction">
+			<result name="success" type="imageResult">
+			</result>
+			</action>
+			
+			<action name="goTo" class="actions.Avanti" method="goTo">
+            <result name="success">/prodottoSingolo.jsp</result>
+            </action>
+            
+            <action name="mioAccount" class="actions.Avanti" method="goToAccount">
+            <result name="success">/ilMioAccount.jsp</result>
+            <result name="home" type="redirect">/index.jsp</result>
+            </action>
+            
+            <action name="returnIndex" class="actions.Avanti" method="goToIndex">
+            <result name="success" type="redirect">/index.jsp</result>
+            </action>
+			
+			<action name="loadCarrello" class="actions.Avanti" method="caricaCarrello">
+            <result name="success">/ilMioAccount.jsp</result>
+            </action>
+            <action name="completaOrdine" class="actions.Ordine" method="completaOrdine">
+            <result name="success">/reindirizza.jsp</result>
+            <result name="error">/reindirizza.jsp</result>
+            </action>
+            
+            <action name="eliminaCarrello" class="actions.Ordine" method="eliminaCarrello">
+            <result name="success">/ilMioAccount.jsp</result>
+            </action>
+            
+            <action name="orderAction" class="actions.Avanti" method="orderBy">
+            <result name="success">/prodotti.jsp</result>
+            </action>
+            
+            <action name="goToPage" class="actions.Avanti" method="goToPage">
+            <result name="success">/prodotti.jsp</result>
+            </action>
+            
+            <action name="goToAccountPage" class="actions.Avanti" method="goToAccountPage">
+            <result name="success">/ilMioAccount.jsp</result>
+            </action>
+            
+            <action name="goToAdminPage" class="actions.Admin" method="goToAdminPage">
+            <result name="success">/admin.jsp</result>
+            </action> 
+            
+            <action name="goToTxnPage" class="actions.Admin" method="goToTxnPage">
+            <result name="success">/admin.jsp</result>
+            </action>
+            
+            
+    </package>
+</struts>

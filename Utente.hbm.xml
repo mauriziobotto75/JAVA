@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-mag-2015 9.28.00 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="dati.Utente" table="UTENTE">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="increment" />
+        </id>
+        <property name="nome" type="java.lang.String">
+            <column name="NOME" />
+        </property>
+        <property name="cognome" type="java.lang.String">
+            <column name="COGNOME" />
+        </property>
+        <property name="user" type="java.lang.String">
+            <column name="USER" />
+        </property>
+        <property name="pass" type="java.lang.String">
+            <column name="PASS" />
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="EMAIL" />
+        </property>
+        <property name="stato" type="java.lang.String">
+            <column name="STATO" />
+        </property>
+        <set name="ordini" table="ORDINE" inverse="false" lazy="true">
+            <key>
+                <column name="ID" />
+            </key>
+            <one-to-many class="dati.Ordine" />
+        </set>
+    </class>
+</hibernate-mapping>
