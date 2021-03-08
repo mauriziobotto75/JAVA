@@ -1,0 +1,65 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="actions" extends="struts-default">
+        <action name="login" class="actions.Accedi" method="execute">
+            <result name="success">/scelta.jsp</result>
+            <result name="error">/errore.jsp</result>
+         </action>
+         
+         <action name="invia" class="actions.Contatta" method="execute2">
+            <result name="invia">/index.jsp</result>
+         </action> 
+         
+          <action name="contatta" class="actions.Contatta" method="execute">
+            <result name="success">/email.jsp</result>
+         </action>
+         
+         <action name="aggiungi" class="actions.Database" method="execute">
+            <result name="success">/index.jsp</result>
+            <result name="userERR">/registrazione.jsp</result>
+            <result name="error">/registrazione.jsp</result> 
+            <result name="errpass">/registrazione.jsp</result> 
+         </action>  
+         
+           <action name="sceltaI" class="actions.Partita" method="execute">
+            <result name="success">/partita.jsp</result>
+         </action>  
+         
+         <action name="sceltaF" class="actions.Partita" method="execute2">
+            <result name="success">/partita.jsp</result>
+         </action>     
+         
+         <action name="incrementa" class="actions.Partita" method="incrementa">
+            <result name="success">/partita.jsp</result>
+         </action> 
+          
+         <action name="attendi" class="actions.Partita" method="attendi">
+            <result name="success">/partita.jsp</result>
+         </action>
+           
+		<action name="addestra" class="actions.Partita" method="addestra">
+            <result name="success">/partita.jsp</result>
+         </action>           
+
+		<action name="setsoldati" class="actions.Partita" method="posiziona">
+            <result name="success">/partita.jsp</result>
+         </action> 
+         
+         <action name="attacca" class="actions.Partita" method="attacca">
+            <result name="success">/attacca.jsp</result>
+         </action>  
+    
+    	<action name="attack" class="actions.Partita" method="attack">
+            <result name="pirla">/attacca.jsp</result>
+            <result name="vittoria">/partita.jsp</result>
+            <result name="sconfitta">/partita.jsp</result>
+         </action> 
+          
+         <action name="avanti" class="actions.Partita" method="avanti">
+            <result name="success">/partita.jsp</result>
+         </action> 
+         	
+    </package>
+</struts>
