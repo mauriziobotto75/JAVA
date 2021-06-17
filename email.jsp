@@ -4,14 +4,19 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Contatta</title>
 <style>
 #header {
-    background-color:black;
+
+	background-color:black;
+	height: 100px;
     color:white;
     text-align:center;
     padding:5px;
 
 }
+
 #nav {
     line-height:30px;
     background-color:#eeeeee;
@@ -34,38 +39,39 @@
 	 
 }
 #footer {
+
     background-color:black;
+    height: 40px;
     color:white;
     clear:both;
     text-align:center;
    	padding:5px;	 
 
 }
-</style>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Errore</title>
-</head>
 
+</style>
+</head>
 <body>
 <div id="header">
-<h2>ERRORE</h2>
-
+Contattami
 </div>
+
 <div id="nav">
 
 </div>
-<div id="section">
+<div id= section>
 
-il sistema ha riscontrato un errore...<br>
-controlla nome, cognome username e password<br>
-se il problema persiste<br>
-contatta l'<a href="<s:url action='contatta'/>">amministratore</a>
+<s:form action="invia" >
+<h3>Inserisci i tuoi dati</h3>
+			 <s:textfield name="name" label="Nome" />
+			 <s:textfield name="surname" label="Cognome" />
+			 <s:textfield name="email_add" label="Indirizzo Email" />
+			<s:textarea label="Testo Email" name="email" cols="50" rows="5"/>
+<s:submit value="Invia Email"/>
+</s:form>
 </div>
-<div id="other">
-<a href="index.jsp">Indietro</a>
-</div>
+<div id="other"></div>
 <div id="footer">
-Copyright © <a href="email.jsp">Enrico Puglia</a>
-</div>
+<a href="index.jsp">Indietro</a></div>
 </body>
 </html>
