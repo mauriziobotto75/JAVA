@@ -1,32 +1,71 @@
-<%@ page import="java.util.Date" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="/struts-tags" prefix="s" %>
+<html>
+<head>
+<style>
+#header {
+    background-color:black;
+    color:white;
+    text-align:center;
+    padding:5px;
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3c.org/TR/xhtml1/DTD/xhtml11.dtd">
+}
+#nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:500px;
+    width:150px;
+    float:left;
+    padding:5px;
+      
+}
+#section {
+    width:350px;
+    float:left;
+    padding:10px;
+ 	 
+}
+#other {
+    clear:both;
+    text-align:center;
+   padding:5px;	
+	 
+}
+#footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+   	padding:5px;	 
 
-<html xmlns="http://www.w3.org/1999/XHTML" xml:lang="it" lang="it">
-<%@ include file="heading.jsp" %>
+}
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Errore</title>
+</head>
+
 <body>
-<table width="100%">
-  <tr>
-    <td colspan="2" class="blubg">
-      <%@ include file="banner.jsp" %>
-    </td>
-  </tr>
-  <tr>
-    <td width="10%" class="blubg" style="vertical-align: top">
-      <%@ include file="menu.jsp" %>
-    </td>
-    <td width="90%" style="text-align: center">
-      <div class="errore">&nbsp;</div>
-      <div class="errore">Siamo spiacenti, ma il catalogo dei prodotti non &egrave; al momento disponibile.<br /><br />Riprovate pi&ugrave; tardi.</div>
-      <div class="errore">&nbsp;</div>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <%@ include file="footer.jsp" %>
-    </td>
-  </tr>
-</table>
-</body>
+<div id="header">
+<h2>ERRORE</h2>
 
+</div>
+<div id="nav">
+
+</div>
+<div id="section">
+
+il sistema ha riscontrato un errore...<br>
+controlla nome, cognome username e password<br>
+se il problema persiste<br>
+contatta l'<a href="<s:url action='contatta'/>">amministratore</a>
+</div>
+<div id="other">
+<a href="index.jsp">Indietro</a>
+</div>
+<div id="footer">
+Copyright © <a href="email.jsp">Enrico Puglia</a>
+</div>
+</body>
 </html>
