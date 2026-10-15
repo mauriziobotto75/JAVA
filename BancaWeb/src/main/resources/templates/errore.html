@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Operazione non completata · Banca Web</title><link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main class="container narrow">
+    <section class="error-card">
+        <p class="eyebrow">OPERAZIONE NON COMPLETATA</p>
+        <h1>Controlla i dati</h1>
+        <p th:text="${messaggioErrore}">Si è verificato un errore.</p>
+        <a class="button secondary" th:href="@{/}">Torna alla home</a>
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${modifica ? 'Modifica cliente' : 'Nuovo cliente'} + ' · Banca Web'">Cliente · Banca Web</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main class="container narrow">
+    <a class="back-link" th:href="@{/clienti}">← Tutti i clienti</a>
+    <div class="page-heading"><div><p class="eyebrow">ANAGRAFICA</p><h1 th:text="${modifica ? 'Modifica cliente' : 'Nuovo cliente'}">Nuovo cliente</h1></div></div>
+    <form class="form-card" th:action="@{/clienti}" th:object="${form}" method="post">
+        <div th:replace="~{fragments :: errors}"></div>
+        <label for="codice">Codice cliente <span class="required">*</span></label>
+        <input id="codice" type="text" th:field="*{codice}" maxlength="6" required
+               th:readonly="${modifica}" autocomplete="off">
+        <label for="nome">Nominativo <span class="required">*</span></label>
+        <input id="nome" type="text" th:field="*{nome}" maxlength="40" required>
+        <label for="indirizzo">Indirizzo <span class="required">*</span></label>
+        <input id="indirizzo" type="text" th:field="*{indirizzo}" maxlength="40" required>
+        <div class="form-actions">
+            <a class="button secondary" th:href="@{/clienti}">Annulla</a>
+            <button class="button primary" type="submit">Salva cliente</button>
+        </div>
+    </form>
+</main>
+</body>
+</html>

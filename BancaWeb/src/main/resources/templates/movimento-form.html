@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nuovo movimento · Banca Web</title><link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main class="container narrow">
+    <div class="page-heading"><div><p class="eyebrow">OPERATIVITÀ</p><h1>Registra un movimento</h1><p class="lead">La registrazione e l'aggiornamento del saldo avvengono nella stessa transazione.</p></div></div>
+    <form class="form-card" th:action="@{/movimenti}" th:object="${form}" method="post">
+        <div th:replace="~{fragments :: errors}"></div>
+        <label for="numeroConto">Conto <span class="required">*</span></label>
+        <select id="numeroConto" th:field="*{numeroConto}" required>
+            <option value="">Seleziona un conto</option>
+            <option th:each="conto : ${conti}" th:if="${conto.operativo}" th:value="${conto.numero}"
+                    th:text="${conto.numero + ' — ' + conto.cliente.nome + ' · saldo ' + conto.saldo + ' €'}"></option>
+        </select>
+        <div class="form-grid">
+            <div><label for="tipo">Tipo <span class="required">*</span></label>
+                <select id="tipo" th:field="*{tipo}" required>
+                    <option value="">Seleziona</option>
+                    <option th:each="tipo : ${tipi}" th:value="${tipo}" th:text="${tipo.name() + ' — ' + tipo.descrizione}"></option>
+                </select>
+            </div>
+            <div><label for="importo">Importo (€) <span class="required">*</span></label>
+                <input id="importo" type="number" th:field="*{importo}" min="0.01" step="0.01" required>
+            </div>
+        </div>
+        <label for="causale">Causale <span class="required">*</span></label>
+        <input id="causale" type="text" th:field="*{causale}" maxlength="40" required>
+        <div class="form-grid">
+            <div><label for="dataOperazione">Data operazione <span class="required">*</span></label><input id="dataOperazione" type="date" th:field="*{dataOperazione}" required></div>
+            <div><label for="dataValuta">Data valuta <span class="required">*</span></label><input id="dataValuta" type="date" th:field="*{dataValuta}" required></div>
+        </div>
+        <p class="hint">PR, BO e PA sono addebiti: l'importo deve rientrare nel saldo disponibile più fido.</p>
+        <div class="form-actions">
+            <a class="button secondary" th:href="@{/}">Annulla</a>
+            <button class="button primary" type="submit">Conferma movimento</button>
+        </div>
+    </form>
+</main>
+</body>
+</html>

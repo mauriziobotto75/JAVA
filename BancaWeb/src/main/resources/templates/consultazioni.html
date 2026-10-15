@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Consultazioni · Banca Web</title><link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main class="container">
+    <div class="page-heading"><div><p class="eyebrow">RICERCHE</p><h1>Consultazioni</h1><p class="lead">Le cinque interrogazioni previste dal menu COBOL/400.</p></div></div>
+    <div th:replace="~{fragments :: flash}"></div>
+    <section class="filter-grid">
+        <form class="filter-card" th:action="@{/consultazioni}" method="get">
+            <input type="hidden" name="vista" value="saldo-negativo">
+            <p class="eyebrow">01</p><h2>Saldo negativo</h2><p>Conti con saldo inferiore a zero.</p>
+            <button class="button secondary" type="submit">Mostra conti</button>
+        </form>
+        <form class="filter-card" th:action="@{/consultazioni}" method="get">
+            <input type="hidden" name="vista" value="tipo">
+            <p class="eyebrow">02</p><h2>Per tipo</h2>
+            <label for="tipo">Tipo movimento</label>
+            <select id="tipo" name="tipo" required>
+                <option value="">Seleziona</option>
+                <option th:each="tipo : ${tipi}" th:value="${tipo}" th:selected="${tipo == tipoSelezionato}"
+                        th:text="${tipo.name() + ' — ' + tipo.descrizione}"></option>
+            </select>
+            <button class="button secondary" type="submit">Cerca</button>
+        </form>
+        <form class="filter-card" th:action="@{/consultazioni}" method="get">
+            <input type="hidden" name="vista" value="date">
+            <p class="eyebrow">03</p><h2>Tra date</h2>
+            <div class="filter-dates"><div><label for="dal-date">Dal</label><input id="dal-date" type="date" name="dal" th:value="${dal}" required></div>
+                <div><label for="al-date">Al</label><input id="al-date" type="date" name="al" th:value="${al}" required></div></div>
+            <button class="button secondary" type="submit">Cerca</button>
+        </form>
+        <form class="filter-card" th:action="@{/consultazioni}" method="get">
+            <input type="hidden" name="vista" value="conto">
+            <p class="eyebrow">04</p><h2>Per conto</h2>
+            <label for="numero-conto">Numero conto</label>
+            <select id="numero-conto" name="numero" required><option value="">Seleziona</option>
+                <option th:each="conto : ${conti}" th:value="${conto.numero}" th:selected="${conto.numero == numero}" th:text="${conto.numero + ' — ' + conto.cliente.nome}"></option></select>
+            <button class="button secondary" type="submit">Cerca</button>
+        </form>
+        <form class="filter-card" th:action="@{/consultazioni}" method="get">
+            <input type="hidden" name="vista" value="conto-date">
+            <p class="eyebrow">05</p><h2>Conto e date</h2>
+            <label for="numero-conto-date">Numero conto</label>
+            <select id="numero-conto-date" name="numero" required><option value="">Seleziona</option>
+                <option th:each="conto : ${conti}" th:value="${conto.numero}" th:selected="${conto.numero == numero}" th:text="${conto.numero + ' — ' + conto.cliente.nome}"></option></select>
+            <div class="filter-dates"><div><label for="dal-conto">Dal</label><input id="dal-conto" type="date" name="dal" th:value="${dal}" required></div>
+                <div><label for="al-conto">Al</label><input id="al-conto" type="date" name="al" th:value="${al}" required></div></div>
+            <button class="button secondary" type="submit">Cerca</button>
+        </form>
+    </section>
+
+    <section class="results" th:if="${vista == 'saldo-negativo'}">
+        <div class="section-heading"><div><p class="eyebrow">RISULTATI</p><h2>Conti con saldo negativo</h2></div></div>
+        <div class="table-wrap" th:if="${!contiNegativi.isEmpty()}">
+            <table><thead><tr><th>Conto</th><th>Cliente</th><th class="text-right">Saldo</th><th class="text-right">Fido</th><th>Stato</th></tr></thead>
+                <tbody><tr th:each="conto : ${contiNegativi}">
+                    <td class="mono" th:text="${conto.numero}"></td><td th:text="${conto.cliente.nome}"></td>
+                    <td class="text-right amount negative" th:text="${#numbers.formatDecimal(conto.saldo, 1, 2, 'POINT', 'COMMA')} + ' €'"></td>
+                    <td class="text-right" th:text="${#numbers.formatDecimal(conto.fido, 1, 2, 'POINT', 'COMMA')} + ' €'"></td>
+                    <td th:text="${conto.operativo ? 'Operativo' : 'Chiuso'}"></td>
+                </tr></tbody>
+            </table>
+        </div>
+        <p class="empty-inline" th:if="${contiNegativi.isEmpty()}">Nessun conto con saldo negativo.</p>
+    </section>
+    <section class="results" th:if="${vista == 'tipo' or vista == 'date' or vista == 'conto' or vista == 'conto-date'}">
+        <div class="section-heading"><div><p class="eyebrow">RISULTATI</p><h2>Movimenti trovati</h2></div><span class="result-count" th:text="${movimenti.size()} + ' movimenti'"></span></div>
+        <div class="table-wrap" th:if="${!movimenti.isEmpty()}">
+            <table><thead><tr><th>N.</th><th>Conto</th><th>Data operazione</th><th>Data valuta</th><th>Tipo</th><th>Causale</th><th class="text-right">Importo</th></tr></thead>
+                <tbody><tr th:each="movimento : ${movimenti}">
+                    <td class="mono" th:text="${movimento.numero}"></td><td class="mono" th:text="${movimento.conto.numero}"></td>
+                    <td th:text="${#temporals.format(movimento.dataOperazione, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${#temporals.format(movimento.dataValuta, 'dd/MM/yyyy')}"></td>
+                    <td><span class="badge badge-muted" th:text="${movimento.tipo.name()}"></span></td>
+                    <td th:text="${movimento.causale}"></td>
+                    <td class="text-right amount" th:text="${#numbers.formatDecimal(movimento.importo, 1, 2, 'POINT', 'COMMA')} + ' €'"></td>
+                </tr></tbody>
+            </table>
+        </div>
+        <p class="empty-inline" th:if="${movimenti.isEmpty()}">Nessun movimento corrisponde ai filtri selezionati.</p>
+    </section>
+</main>
+</body>
+</html>

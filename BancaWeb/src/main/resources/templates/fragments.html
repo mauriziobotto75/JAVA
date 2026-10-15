@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="header">
+    <div class="topbar">
+        <a class="brand" th:href="@{/}">Banca <span>Web</span></a>
+        <nav aria-label="Navigazione principale">
+            <a th:href="@{/clienti}">Clienti</a>
+            <a th:href="@{/conti}">Conti</a>
+            <a th:href="@{/movimenti/nuovo}">Nuovo movimento</a>
+            <a th:href="@{/consultazioni}">Consultazioni</a>
+        </nav>
+    </div>
+</header>
+<div th:fragment="flash" th:if="${messaggio}" class="notice" role="status" th:text="${messaggio}"></div>
+<div th:fragment="errors" class="field-errors" th:if="${#fields.hasErrors('*')}">
+    <p th:each="error : ${#fields.errors('*')}" th:text="${error}"></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Conti · Banca Web</title><link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main class="container">
+    <div class="page-heading">
+        <div><p class="eyebrow">OPERATIVITÀ</p><h1>Conti correnti</h1><p class="lead">Saldo, fido e stato dei conti.</p></div>
+        <a class="button primary" th:href="@{/conti/nuovo}">+ Apri un conto</a>
+    </div>
+    <div th:replace="~{fragments :: flash}"></div>
+    <div class="table-wrap" th:if="${!conti.isEmpty()}">
+        <table>
+            <thead><tr><th>Numero</th><th>Cliente</th><th>ABI / CAB</th><th>Apertura</th><th class="text-right">Saldo</th><th class="text-right">Fido</th><th>Stato</th><th>Azioni</th></tr></thead>
+            <tbody>
+            <tr th:each="conto : ${conti}">
+                <td class="mono" th:text="${conto.numero}"></td>
+                <td><span th:text="${conto.cliente.nome}"></span><small class="subline" th:text="${conto.cliente.codice}"></small></td>
+                <td class="mono" th:text="${(conto.abi ?: '—') + ' / ' + (conto.cab ?: '—')}"></td>
+                <td th:text="${#temporals.format(conto.dataApertura, 'dd/MM/yyyy')}"></td>
+                <td class="text-right amount" th:text="${#numbers.formatDecimal(conto.saldo, 1, 2, 'POINT', 'COMMA')} + ' €'"></td>
+                <td class="text-right" th:text="${#numbers.formatDecimal(conto.fido, 1, 2, 'POINT', 'COMMA')} + ' €'"></td>
+                <td><span class="badge" th:classappend="${conto.operativo ? ' badge-green' : ' badge-muted'}"
+                          th:text="${conto.operativo ? 'Operativo' : 'Chiuso'}"></span></td>
+                <td>
+                    <div class="action-stack" th:if="${conto.operativo}">
+                        <form class="inline-form" th:action="@{/conti/{numero}/fido(numero=${conto.numero})}" method="post">
+                            <label class="sr-only" th:for="${'fido-' + conto.numero}">Nuovo fido</label>
+                            <input class="compact-input" type="number" min="0" step="0.01" required
+                                   th:id="${'fido-' + conto.numero}" name="fido" th:value="${conto.fido}">
+                            <button class="text-link" type="submit">Aggiorna fido</button>
+                        </form>
+                        <form th:action="@{/conti/{numero}/chiudi(numero=${conto.numero})}" method="post"
+                              onsubmit="return confirm('Confermi la chiusura del conto?');">
+                            <button class="text-link danger-link" type="submit">Chiudi</button>
+                        </form>
+                    </div>
+                    <span class="muted" th:if="${!conto.operativo}">—</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="empty-state" th:if="${conti.isEmpty()}">
+        <h2>Ancora nessun conto</h2><p>Crea prima un cliente, poi apri un conto a suo nome.</p>
+        <a class="button primary" th:href="@{/conti/nuovo}">Apri il primo conto</a>
+    </div>
+</main>
+</body>
+</html>

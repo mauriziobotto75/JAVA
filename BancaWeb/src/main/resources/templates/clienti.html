@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Clienti · Banca Web</title><link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main class="container">
+    <div class="page-heading">
+        <div><p class="eyebrow">ANAGRAFICA</p><h1>Clienti</h1><p class="lead">Codici e dati anagrafici associati ai conti.</p></div>
+        <a class="button primary" th:href="@{/clienti/nuovo}">+ Nuovo cliente</a>
+    </div>
+    <div th:replace="~{fragments :: flash}"></div>
+    <div class="table-wrap" th:if="${!clienti.isEmpty()}">
+        <table>
+            <thead><tr><th>Codice</th><th>Nominativo</th><th>Indirizzo</th><th></th></tr></thead>
+            <tbody>
+            <tr th:each="cliente : ${clienti}">
+                <td class="mono" th:text="${cliente.codice}"></td>
+                <td th:text="${cliente.nome}"></td>
+                <td th:text="${cliente.indirizzo}"></td>
+                <td class="text-right"><a class="text-link" th:href="@{/clienti/{codice}/modifica(codice=${cliente.codice})}">Modifica</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="empty-state" th:if="${clienti.isEmpty()}">
+        <h2>Ancora nessun cliente</h2><p>Aggiungi un cliente per poter aprire il primo conto.</p>
+        <a class="button primary" th:href="@{/clienti/nuovo}">Crea cliente</a>
+    </div>
+</main>
+<footer class="footer">I codici cliente mantengono il limite COBOL di 6 caratteri.</footer>
+</body>
+</html>

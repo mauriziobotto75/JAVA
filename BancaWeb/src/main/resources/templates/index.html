@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Banca Web</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main class="container">
+    <section class="hero">
+        <p class="eyebrow">GESTIONE BANCARIA</p>
+        <h1>Un'unica schermata.<br><span>Tutta l'operatività.</span></h1>
+        <p class="lead">Gestisci clienti, conti correnti e movimenti; consulta i dati con i filtri del programma COBOL/400.</p>
+        <div class="actions">
+            <a class="button primary" th:href="@{/conti/nuovo}">Apri un conto</a>
+            <a class="button secondary" th:href="@{/movimenti/nuovo}">Registra un movimento</a>
+        </div>
+    </section>
+
+    <section class="stats" aria-label="Riepilogo">
+        <a class="stat-card" th:href="@{/clienti}">
+            <span class="stat-label">Clienti</span>
+            <strong th:text="${numeroClienti}">0</strong>
+            <span class="stat-note">Anagrafiche registrate</span>
+        </a>
+        <a class="stat-card" th:href="@{/conti}">
+            <span class="stat-label">Conti correnti</span>
+            <strong th:text="${numeroConti}">0</strong>
+            <span class="stat-note">Conti aperti e chiusi</span>
+        </a>
+    </section>
+
+    <section class="section-heading">
+        <div>
+            <p class="eyebrow">STRUMENTI</p>
+            <h2>Operazioni disponibili</h2>
+        </div>
+    </section>
+    <div class="feature-grid">
+        <a class="feature-card" th:href="@{/clienti}">
+            <span class="feature-number">01</span><h3>Clienti</h3>
+            <p>Inserisci e aggiorna i codici cliente con nominativo e indirizzo.</p>
+        </a>
+        <a class="feature-card" th:href="@{/conti}">
+            <span class="feature-number">02</span><h3>Conti</h3>
+            <p>Apri conti, aggiorna il fido e chiudi quelli non più operativi.</p>
+        </a>
+        <a class="feature-card" th:href="@{/consultazioni}">
+            <span class="feature-number">03</span><h3>Consultazioni</h3>
+            <p>Esamina saldi negativi e movimenti per tipo, conto e intervallo date.</p>
+        </a>
+    </div>
+</main>
+<footer class="footer">Banca Web · Prototipo didattico derivato da COBOL/400</footer>
+</body>
+</html>

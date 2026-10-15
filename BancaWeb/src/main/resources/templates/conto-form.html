@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nuovo conto · Banca Web</title><link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main class="container narrow">
+    <a class="back-link" th:href="@{/conti}">← Tutti i conti</a>
+    <div class="page-heading"><div><p class="eyebrow">OPERATIVITÀ</p><h1>Apri un conto</h1><p class="lead">Saldo iniziale pari a zero, come nel programma originale.</p></div></div>
+    <form class="form-card" th:action="@{/conti}" th:object="${form}" method="post">
+        <div th:replace="~{fragments :: errors}"></div>
+        <label for="numero">Numero conto <span class="required">*</span></label>
+        <input id="numero" type="text" th:field="*{numero}" maxlength="12" required autocomplete="off">
+        <label for="codiceCliente">Cliente <span class="required">*</span></label>
+        <select id="codiceCliente" th:field="*{codiceCliente}" required>
+            <option value="">Seleziona un cliente</option>
+            <option th:each="cliente : ${clienti}" th:value="${cliente.codice}"
+                    th:text="${cliente.codice + ' — ' + cliente.nome}"></option>
+        </select>
+        <div class="form-grid">
+            <div><label for="abi">ABI</label><input id="abi" type="text" th:field="*{abi}" maxlength="5"></div>
+            <div><label for="cab">CAB</label><input id="cab" type="text" th:field="*{cab}" maxlength="5"></div>
+            <div><label for="filiale">Filiale</label><input id="filiale" type="text" th:field="*{filiale}" maxlength="4"></div>
+            <div><label for="dataApertura">Data apertura <span class="required">*</span></label><input id="dataApertura" type="date" th:field="*{dataApertura}" required></div>
+        </div>
+        <label for="fido">Fido iniziale (€) <span class="required">*</span></label>
+        <input id="fido" type="number" th:field="*{fido}" min="0" step="0.01" required>
+        <div class="form-actions">
+            <a class="button secondary" th:href="@{/conti}">Annulla</a>
+            <button class="button primary" type="submit">Apri conto</button>
+        </div>
+    </form>
+</main>
+</body>
+</html>
