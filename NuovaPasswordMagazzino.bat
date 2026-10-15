@@ -1,0 +1,5 @@
+
+SET PGUSER=postgres
+SET PGDATABASE=magazzino
+SET TARGETUSER=magazzino_user
+SET NEWPASSWORD=Admin
