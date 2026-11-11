@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:as400://${DB2_HOST}/${DB2_SCHEMA:QGPL};naming=sql;errors=full
+    username: ${DB2_USERNAME}
+    password: ${DB2_PASSWORD}
+    driver-class-name: com.ibm.as400.access.AS400JDBCDriver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.DB2iDialect
+  h2:
+    console:
+      enabled: false

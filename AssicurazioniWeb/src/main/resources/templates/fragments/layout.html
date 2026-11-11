@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="header">
+    <nav class="topbar">
+        <a class="brand" th:href="@{/polizze}">Assicurazioni<span> / Polizze</span></a>
+        <div class="nav-actions">
+            <a th:href="@{/polizze(stato='N')}">Da pagare</a>
+            <a class="button button-primary" th:href="@{/polizze/nuova}">+ Nuova polizza</a>
+        </div>
+    </nav>
+</header>
+</body>
+</html>

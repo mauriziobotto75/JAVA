@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="'Polizza ' + ${polizza.codicePolizza} + ' | Assicurazioni'">Dettaglio polizza | Assicurazioni</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<main class="container container-narrow">
+    <div class="notice notice-success" th:if="${messaggio}" th:text="${messaggio}"></div>
+    <div class="notice notice-error" th:if="${errore}" th:text="${errore}"></div>
+
+    <section class="page-heading">
+        <div>
+            <p class="eyebrow">DETTAGLIO POLIZZA</p>
+            <h1 class="mono" th:text="${polizza.codicePolizza}">POL000001</h1>
+            <span class="badge"
+                  th:classappend="${polizza.pagata} ? ' badge-paid' : ' badge-unpaid'"
+                  th:text="${polizza.pagata} ? 'Pagata' : 'Da pagare'">Da pagare</span>
+        </div>
+        <div class="heading-actions">
+            <a class="button button-secondary" th:href="@{/polizze/{codice}/modifica(codice=${polizza.codicePolizza})}">Modifica</a>
+            <a class="button button-quiet" th:href="@{/polizze}">Torna all'elenco</a>
+        </div>
+    </section>
+
+    <section class="card detail-card">
+        <dl class="detail-grid">
+            <div><dt>Cliente</dt><dd th:text="${polizza.nomeCliente ?: '—'}">Mario Rossi</dd></div>
+            <div><dt>Indirizzo</dt><dd th:text="${polizza.indirizzo ?: '—'}">Via Roma</dd></div>
+            <div><dt>Veicolo</dt><dd th:text="${polizza.siglaAuto ?: '—'}">AB123CD</dd></div>
+            <div><dt>Cavalli</dt><dd th:text="${polizza.numeroCavalli ?: '—'}">90</dd></div>
+            <div><dt>Scadenza</dt><dd th:text="${polizza.scadenza != null ? #temporals.format(polizza.scadenza, 'dd/MM/yyyy') : '—'}">31/12/2026</dd></div>
+            <div>
+                <dt>Importo</dt>
+                <dd th:text="${polizza.importo != null ? #numbers.formatDecimal(polizza.importo, 1, 'POINT', 2, 'COMMA') + ' €' : '—'}">0,00 €</dd>
+            </div>
+            <div><dt>Data pagamento</dt><dd th:text="${polizza.dataPagamento != null ? #temporals.format(polizza.dataPagamento, 'dd/MM/yyyy') : 'Non registrato'}">Non registrato</dd></div>
+        </dl>
+    </section>
+
+    <section class="card operation-card" th:if="${!polizza.pagata}">
+        <div>
+            <p class="eyebrow">MODULO POLSTA</p>
+            <h2>Registra pagamento</h2>
+            <p class="muted">La polizza passerà allo stato pagato con la data indicata.</p>
+        </div>
+        <form class="inline-form" method="post"
+              th:action="@{/polizze/{codice}/pagamento(codice=${polizza.codicePolizza})}">
+            <label>Data pagamento
+                <input type="date" name="dataPagamento" th:value="${oggi}" required>
+            </label>
+            <button class="button button-primary" type="submit">Conferma pagamento</button>
+        </form>
+    </section>
+
+    <section class="danger-zone">
+        <div>
+            <p class="eyebrow">MODULO ANNPOL</p>
+            <h2>Annulla polizza</h2>
+            <p class="muted">L'annullamento rimuove il record dall'archivio e non può essere annullato.</p>
+        </div>
+        <form method="post" th:action="@{/polizze/{codice}/annullamento(codice=${polizza.codicePolizza})}"
+              onsubmit="return confirm('Annullare definitivamente questa polizza?')">
+            <input type="hidden" name="conferma" value="S">
+            <button class="button button-danger" type="submit">Annulla polizza</button>
+        </form>
+    </section>
+</main>
+</body>
+</html>
