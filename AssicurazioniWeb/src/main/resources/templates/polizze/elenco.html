@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${titolo} + ' | Assicurazioni'">Archivio polizze | Assicurazioni</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<main class="container">
+    <section class="page-heading">
+        <div>
+            <p class="eyebrow">GESTIONALE</p>
+            <h1 th:text="${titolo}">Archivio polizze</h1>
+            <p class="muted">Ricerca, rinnovi e stato dei pagamenti.</p>
+        </div>
+        <a class="button button-primary" th:href="@{/polizze/nuova}">+ Nuova polizza</a>
+    </section>
+
+    <div class="notice notice-success" th:if="${messaggio}" th:text="${messaggio}"></div>
+    <div class="notice notice-error" th:if="${errore}" th:text="${errore}"></div>
+
+    <form class="filters card" method="get" th:action="@{/polizze}">
+        <label class="search-field">
+            <span>Cerca polizza o cliente</span>
+            <input type="search" name="q" placeholder="Codice polizza, nome cliente" th:value="${q}">
+        </label>
+        <label>
+            <span>Pagamento</span>
+            <select name="stato">
+                <option value="">Tutti</option>
+                <option value="N" th:selected="${stato == 'N'}">Da pagare</option>
+                <option value="P" th:selected="${stato == 'P'}">Pagate</option>
+            </select>
+        </label>
+        <button class="button button-secondary" type="submit">Filtra</button>
+        <a class="button button-quiet" th:href="@{/polizze}">Azzera</a>
+    </form>
+
+    <section class="card table-card">
+        <div class="table-wrap">
+            <table>
+                <thead>
+                <tr>
+                    <th>Codice</th>
+                    <th>Cliente</th>
+                    <th>Veicolo</th>
+                    <th>Scadenza</th>
+                    <th class="numeric">Importo</th>
+                    <th>Pagamento</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="polizza : ${polizze}">
+                    <td class="mono" th:text="${polizza.codicePolizza}">POL000001</td>
+                    <td>
+                        <a class="table-link" th:href="@{/polizze/{codice}(codice=${polizza.codicePolizza})}"
+                           th:text="${polizza.nomeCliente ?: 'Cliente non specificato'}">Cliente</a>
+                    </td>
+                    <td th:text="${polizza.siglaAuto ?: '—'}">AB123CD</td>
+                    <td th:text="${polizza.scadenza != null ? #temporals.format(polizza.scadenza, 'dd/MM/yyyy') : '—'}">31/12/2026</td>
+                    <td class="numeric" th:text="${polizza.importo != null ? #numbers.formatDecimal(polizza.importo, 1, 'POINT', 2, 'COMMA') + ' €' : '—'}">0,00 €</td>
+                    <td>
+                        <span class="badge"
+                              th:classappend="${polizza.pagata} ? ' badge-paid' : ' badge-unpaid'"
+                              th:text="${polizza.pagata} ? 'Pagata' : 'Da pagare'">Da pagare</span>
+                    </td>
+                    <td class="actions-cell">
+                        <a class="button button-small button-quiet"
+                           th:href="@{/polizze/{codice}(codice=${polizza.codicePolizza})}">Apri</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(polizze)}">
+                    <td colspan="7" class="empty-state">Nessuna polizza trovata con i filtri selezionati.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer class="table-footer" th:text="${#lists.size(polizze)} + ' polizze'">0 polizze</footer>
+    </section>
+</main>
+</body>
+</html>

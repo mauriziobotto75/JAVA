@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Polizza non trovata | Assicurazioni</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<main class="container container-narrow">
+    <section class="card error-card">
+        <p class="eyebrow">ERRORE 404</p>
+        <h1>Polizza non trovata</h1>
+        <p th:text="${messaggio}">La polizza richiesta non è presente in archivio.</p>
+        <a class="button button-primary" th:href="@{/polizze}">Torna all'archivio</a>
+    </section>
+</main>
+</body>
+</html>

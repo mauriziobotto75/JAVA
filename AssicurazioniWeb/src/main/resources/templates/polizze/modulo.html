@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${azione} + ' | Assicurazioni'">Polizza | Assicurazioni</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+<main class="container container-narrow">
+    <section class="page-heading">
+        <div>
+            <p class="eyebrow">ARCHIVIO POLIZZE</p>
+            <h1 th:text="${azione}">Nuova polizza</h1>
+        </div>
+    </section>
+
+    <form class="card form-card" method="post"
+          th:action="${modifica} ? @{/polizze/{codice}(codice=${polizza.codicePolizza})} : @{/polizze}"
+          th:object="${polizza}">
+        <div class="form-grid">
+            <label>
+                Codice polizza <span class="required">*</span>
+                <input th:field="*{codicePolizza}" maxlength="10" required
+                       th:readonly="${modifica}" autocomplete="off">
+                <small class="field-error" th:errors="*{codicePolizza}"></small>
+            </label>
+            <label>
+                Cliente
+                <input th:field="*{nomeCliente}" maxlength="40" autocomplete="name">
+                <small class="field-error" th:errors="*{nomeCliente}"></small>
+            </label>
+            <label class="span-2">
+                Indirizzo
+                <input th:field="*{indirizzo}" maxlength="60" autocomplete="street-address">
+                <small class="field-error" th:errors="*{indirizzo}"></small>
+            </label>
+            <label>
+                Importo (€)
+                <input th:field="*{importo}" type="number" min="0" max="9999999.99" step="0.01">
+                <small class="field-error" th:errors="*{importo}"></small>
+            </label>
+            <label>
+                Scadenza
+                <input th:field="*{scadenza}" type="date">
+                <small class="field-error" th:errors="*{scadenza}"></small>
+            </label>
+            <label>
+                Sigla auto
+                <input th:field="*{siglaAuto}" maxlength="10" autocomplete="off">
+                <small class="field-error" th:errors="*{siglaAuto}"></small>
+            </label>
+            <label>
+                Cavalli
+                <input th:field="*{numeroCavalli}" type="number" min="1" max="999" step="1">
+                <small class="field-error" th:errors="*{numeroCavalli}"></small>
+            </label>
+        </div>
+        <p class="form-hint">I nuovi contratti vengono registrati come non pagati.</p>
+        <div class="form-actions">
+            <a class="button button-quiet" th:href="@{/polizze}">Annulla</a>
+            <button class="button button-primary" type="submit">Salva polizza</button>
+        </div>
+    </form>
+</main>
+</body>
+</html>
