@@ -1,0 +1,11 @@
+biblioteca_portal.catalogue:
+  title: 'Catalogo biblioteca'
+  route_name: biblioteca_portal.catalogue
+  menu_name: main
+  weight: 20
+
+biblioteca_portal.loans:
+  title: 'Prestiti biblioteca'
+  route_name: biblioteca_portal.loans
+  menu_name: main
+  weight: 21

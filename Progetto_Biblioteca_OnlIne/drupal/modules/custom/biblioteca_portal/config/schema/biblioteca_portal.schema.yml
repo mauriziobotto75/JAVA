@@ -1,0 +1,10 @@
+biblioteca_portal.settings:
+  type: config_object
+  label: 'Biblioteca portal settings'
+  mapping:
+    api_base_url:
+      type: string
+      label: 'Spring Boot API base URL'
+    timeout:
+      type: integer
+      label: 'API request timeout in seconds'

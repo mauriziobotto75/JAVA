@@ -1,0 +1,7 @@
+name: Biblioteca Portal
+type: module
+description: 'Drupal portal pages for the Biblioteca Spring Boot API.'
+package: Custom
+core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:system
