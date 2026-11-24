@@ -1,0 +1,6 @@
+services:
+  biblioteca_portal.api_client:
+    class: Drupal\biblioteca_portal\Service\BibliotecaApiClient
+    arguments:
+      - '@http_client'
+      - '@config.factory'

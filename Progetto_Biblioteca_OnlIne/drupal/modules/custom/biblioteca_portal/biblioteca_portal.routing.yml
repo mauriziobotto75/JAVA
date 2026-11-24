@@ -1,0 +1,39 @@
+biblioteca_portal.catalogue:
+  path: '/biblioteca'
+  defaults:
+    _controller: '\Drupal\biblioteca_portal\Controller\CatalogueController::page'
+    _title: 'Catalogo della biblioteca'
+  requirements:
+    _permission: 'access biblioteca catalogue'
+
+biblioteca_portal.readers:
+  path: '/biblioteca/lettori/nuovo'
+  defaults:
+    _form: '\Drupal\biblioteca_portal\Form\ReaderForm'
+    _title: 'Registra lettore'
+  requirements:
+    _permission: 'manage biblioteca readers'
+
+biblioteca_portal.loans:
+  path: '/biblioteca/prestiti'
+  defaults:
+    _controller: '\Drupal\biblioteca_portal\Controller\LoanController::page'
+    _title: 'Prestiti attivi'
+  requirements:
+    _permission: 'manage biblioteca loans'
+
+biblioteca_portal.loan:
+  path: '/biblioteca/prestiti/nuovo'
+  defaults:
+    _form: '\Drupal\biblioteca_portal\Form\LoanForm'
+    _title: 'Registra prestito'
+  requirements:
+    _permission: 'manage biblioteca loans'
+
+biblioteca_portal.return:
+  path: '/biblioteca/prestiti/restituisci'
+  defaults:
+    _form: '\Drupal\biblioteca_portal\Form\ReturnLoanForm'
+    _title: 'Registra restituzione'
+  requirements:
+    _permission: 'manage biblioteca loans'
